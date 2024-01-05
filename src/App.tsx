@@ -1,39 +1,46 @@
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 import "./App.css";
-import { AuthForm } from "./components";
-import logOut from "./firebase/auth/logOut";
+import { Auth, Home } from "./pages";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context";
+import Family from "./pages/Family";
+import Logout from "./pages/Logout";
 
+// todo - move nav code to its own component
 function App() {
-  const { isLoggingIn, setIsLoggingIn, user } = useContext(AuthContext);
-
-  const handleSignUp = () => {
-    setIsLoggingIn(false);
-  };
-
-  const handleLogIn = () => {
-    setIsLoggingIn(true);
-  };
-
-  const handleLogOut = async () => {
-    await logOut();
-  };
+  const { user } = useContext(AuthContext);
 
   return (
-    <>
-      {user ? (
-        <>
-          <span>Signed in as {user?.email}</span>
-          <button onClick={handleLogOut}>Log out</button>
-        </>
-      ) : (
-        <>
-          <button onClick={handleSignUp}>Sign up</button>
-          <button onClick={handleLogIn}>Log in</button>
-          <AuthForm isLoggingIn={isLoggingIn} />
-        </>
-      )}
-    </>
+    <BrowserRouter>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+              {user ? (
+                <>
+                  <span>{user.email}</span>
+                  <Link to="/logout">Log out</Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/signup">Sign up</Link>
+                  <Link to="/login">Log in</Link>
+                </>
+              )}
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Auth />} />
+          <Route path="/login" element={<Auth isLoggingIn />} />
+          <Route path="/family" element={<Family />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
