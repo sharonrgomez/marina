@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import "./App.css";
+import { AuthForm } from "./components";
+import logOut from "./firebase/auth/logOut";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { isLoggingIn, setIsLoggingIn, user } = useContext(AuthContext);
+
+  const handleSignUp = () => {
+    setIsLoggingIn(false);
+  };
+
+  const handleLogIn = () => {
+    setIsLoggingIn(true);
+  };
+
+  const handleLogOut = async () => {
+    await logOut();
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {user ? (
+        <>
+          <span>Signed in as {user?.email}</span>
+          <button onClick={handleLogOut}>Log out</button>
+        </>
+      ) : (
+        <>
+          <button onClick={handleSignUp}>Sign up</button>
+          <button onClick={handleLogIn}>Log in</button>
+          <AuthForm isLoggingIn={isLoggingIn} />
+        </>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
