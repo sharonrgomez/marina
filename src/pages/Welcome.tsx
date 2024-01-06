@@ -6,21 +6,23 @@ const Welcome = () => {
   return (
     <div id="welcome">
       <Image src="/logo.png" alt="logo" className="welcome-logo" />
-      <Text fontSize="3xl" marginBottom="2">
+      <Text className="welcome-title" fontSize="5xl" marginBottom="1">
         marina
       </Text>
-      <p>
+      <p className="welcome-snippet">
         Your baby's world at your fingertips. Track feedings, sleep, and more
         with ease. Welcome to parenting made simple!
       </p>
       <div className="welcome-buttons">
         <Link to="/signup">
-          <Button colorScheme="cyan" fontSize="1xl">
+          <Button colorScheme="whiteAlpha" fontSize="1xl">
             Sign up
           </Button>
         </Link>
         <Link to="/login">
-          <Button fontSize="1xl">Log in</Button>
+          <Button colorScheme="transparent" variant="outline" fontSize="1xl">
+            Log in
+          </Button>
         </Link>
       </div>
     </div>

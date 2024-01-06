@@ -1,9 +1,17 @@
 #welcome {
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background: rgb(217, 181, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(217, 181, 255, 1) 0%,
+    rgba(151, 185, 255, 1) 100%
+  );
+  color: white;
 }
 
 .welcome-buttons {
@@ -27,5 +35,17 @@
 
 .welcome-logo {
   max-width: 165px;
-  margin-bottom: 1rem;
+}
+
+.welcome-title {
+  font-family: "Playpen Sans", cursive;
+  font-weight: 300;
+}
+
+.welcome-snippet {
+  width: 100%;
+
+  @media screen and (min-width: 600px) {
+    width: 375px;
+  }
 }
