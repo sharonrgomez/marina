@@ -2,6 +2,7 @@ import { useState } from "react";
 import logIn from "../firebase/auth/login";
 import signUp from "../firebase/auth/signUp";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
 
 const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
   const [email, setEmail] = useState("");
@@ -43,9 +44,9 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button onClick={handleSubmit} type="submit">
+        <Button onClick={handleSubmit} type="submit">
           {isLoggingIn ? "Log in" : "Sign up"}
-        </button>
+        </Button>
       </form>
     </div>
   );

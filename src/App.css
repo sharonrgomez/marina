@@ -1,8 +1,13 @@
 #root {
+  text-align: center;
   max-width: 1280px;
-  margin: 0 auto;
+}
+
+#app {
   padding: 2rem;
   text-align: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .logo {

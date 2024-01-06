@@ -1,0 +1,31 @@
+#welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.welcome-buttons {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-buttons a {
+  padding: 0.3rem 0;
+}
+
+.welcome-buttons button {
+  width: 100%;
+
+  @media screen and (min-width: 600px) {
+    width: 175px;
+  }
+}
+
+.welcome-logo {
+  max-width: 165px;
+  margin-bottom: 1rem;
+}

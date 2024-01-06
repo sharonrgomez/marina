@@ -1,8 +1,9 @@
 "use client";
 
+import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 
-const UserForm = () => {
+const Family = () => {
   const [familyName, setFamilyName] = useState("");
   const [babies, setBabies] = useState([{ name: "", bday: "" }]);
 
@@ -54,14 +55,14 @@ const UserForm = () => {
 
         <Babies />
 
-        <button onClick={handleAddAnotherBaby}>Add another bb</button>
+        <Button onClick={handleAddAnotherBaby}>Add another bb</Button>
 
-        <button onClick={handleSubmit} type="submit">
+        <Button onClick={handleSubmit} type="submit">
           Create family
-        </button>
+        </Button>
       </form>
     </>
   );
 };
 
-export default UserForm;
+export default Family;
