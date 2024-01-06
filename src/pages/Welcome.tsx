@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Image, Text } from "@chakra-ui/react";
+import { Button, Image, Stack, Text } from "@chakra-ui/react";
 import "../styles/welcome.css";
 
 const Welcome = () => {
@@ -13,7 +13,7 @@ const Welcome = () => {
         Your baby's world at your fingertips. Track feedings, sleep, and more
         with ease. Welcome to parenting made simple!
       </p>
-      <div className="welcome-buttons">
+      <Stack spacing={1} className="welcome-buttons">
         <Link to="/signup">
           <Button colorScheme="whiteAlpha" fontSize="1xl">
             Sign up
@@ -24,7 +24,7 @@ const Welcome = () => {
             Log in
           </Button>
         </Link>
-      </div>
+      </Stack>
     </div>
   );
 };

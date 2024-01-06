@@ -1,0 +1,28 @@
+#auth {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: rgb(217, 181, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(217, 181, 255, 1) 0%,
+    rgba(151, 185, 255, 1) 100%
+  );
+  color: white;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  ::placeholder {
+    color: #f3f3f3;
+  }
+}

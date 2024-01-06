@@ -1,12 +1,15 @@
 import { useState } from "react";
 import logIn from "../firebase/auth/login";
 import signUp from "../firebase/auth/signUp";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Input, Stack, Text } from "@chakra-ui/react";
+import "../styles/auth.css";
 
 const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,27 +29,106 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
     return;
   };
 
-  return (
-    <div>
-      <h1>{isLoggingIn ? "Log in" : "Sign up"}</h1>
-      <form onSubmit={handleSubmit}>
-        <input
+  const SignUpFields = () => {
+    return (
+      <>
+        <Input
+          type="text"
+          placeholder="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          variant="outline"
+        />
+        <Input
           type="email"
-          placeholder="johndoe@email.com"
+          placeholder="e-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          variant="outline"
         />
-
-        <input
+        <Input
           type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          variant="outline"
         />
+      </>
+    );
+  };
 
-        <Button onClick={handleSubmit} type="submit">
-          {isLoggingIn ? "Log in" : "Sign up"}
-        </Button>
+  const LoginFields = () => {
+    return (
+      <>
+        <Input
+          type="email"
+          placeholder="e-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          variant="outline"
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          variant="outline"
+        />
+      </>
+    );
+  };
+
+  // todo - clean this up
+  return (
+    <div id="auth">
+      <Text className="auth-title" fontSize="4xl" marginBottom="1">
+        {isLoggingIn ? "Log in" : "Sign up"}
+      </Text>
+      <Text className="auth-subtitle" fontSize="md" marginBottom="1">
+        {isLoggingIn
+          ? "Hello, welcome back!"
+          : "Let's get started! Please fill out the following fields to create your account."}
+      </Text>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <Stack className="auth-buttons" spacing={3}>
+          {isLoggingIn ? <LoginFields /> : <SignUpFields />}
+          <Button onClick={handleSubmit} type="submit" colorScheme="gray">
+            {isLoggingIn ? "Log in" : "Sign up"}
+          </Button>
+          {isLoggingIn ? (
+            <Text
+              fontSize="md"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="row"
+              minWidth="max-content"
+            >
+              Don't have an account?
+              <Link to="/signup">
+                <Text fontWeight="bolder" paddingLeft=".3rem">
+                  Sign up
+                </Text>
+              </Link>
+            </Text>
+          ) : (
+            <Text
+              fontSize="md"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="row"
+              minWidth="max-content"
+            >
+              Already have an account?
+              <Link to="/login">
+                <Text fontWeight="bolder" paddingLeft=".3rem">
+                  Log in
+                </Text>
+              </Link>
+            </Text>
+          )}
+        </Stack>
       </form>
     </div>
   );
