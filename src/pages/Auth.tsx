@@ -20,8 +20,8 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
         await logIn(email, password);
       } else {
         await signUp(email, password);
-        navigate("/family");
       }
+      navigate("/family");
     } catch (error) {
       console.error("error", error);
     }

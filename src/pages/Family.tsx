@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@chakra-ui/react";
+import { createFamily } from "../firebase/firestore/family";
 import { useState } from "react";
 
 const Family = () => {
@@ -9,6 +10,9 @@ const Family = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { _, error } = await createFamily(familyName);
+    console.log(error);
 
     return;
   };
