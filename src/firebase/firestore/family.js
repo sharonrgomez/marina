@@ -1,6 +1,6 @@
 import firebase_app from "../config";
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 const fs = getFirestore(firebase_app);
 
@@ -9,8 +9,7 @@ export const createFamily = async (name) => {
     error = null;
 
   try {
-    const familyRef = doc(fs, "families", name);
-    result = setDoc(familyRef, { name }, { merge: true });
+    await addDoc(collection(fs, "families"), { name });
   } catch (e) {
     error = e;
   }
