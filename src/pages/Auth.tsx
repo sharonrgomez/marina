@@ -73,7 +73,7 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
       } else {
         await signUp(email, password);
       }
-      navigate("/family");
+      navigate("/family/new");
     } catch (error) {
       console.error("error", error);
     }

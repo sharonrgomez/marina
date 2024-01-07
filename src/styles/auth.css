@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background: rgb(217, 181, 255);
   background: linear-gradient(
     180deg,
@@ -24,5 +24,13 @@
 
   ::placeholder {
     color: #f3f3f3;
+  }
+}
+
+.auth-subtitle {
+  width: 100%;
+
+  @media screen and (min-width: 600px) {
+    width: 375px;
   }
 }

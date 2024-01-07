@@ -1,9 +1,9 @@
 import "./App.css";
-import { Auth, Home } from "./pages";
+import { Auth, FamilyJoin, Home } from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context";
-import { Family, Logout, Welcome } from "./pages";
+import { FamilyCreate, Logout, Welcome } from "./pages";
 import { NavDrawer } from "./components";
 
 // todo - move nav code to its own component
@@ -18,7 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Auth />} />
           <Route path="/login" element={<Auth isLoggingIn />} />
-          <Route path="/family" element={<Family />} />
+          <Route path="/family/new" element={<FamilyCreate />} />
+          <Route path="/family/join" element={<FamilyJoin />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/welcome" element={<Welcome />} />
         </Routes>
