@@ -10,22 +10,21 @@ import { BabyForm } from "../components";
 
 export type Baby = {
   name: string;
-  bday: string;
+  dob: string;
   gender?: "boy" | "girl";
 };
 
 const Family = () => {
   const [familyName, setFamilyName] = useState("");
   const [babies, setBabies] = useState<Baby[]>([
-    { name: "", bday: "", gender: undefined },
+    { name: "", dob: "", gender: "girl" },
   ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _, error } = await createFamily(familyName);
-    console.log(error);
+    const { error } = await createFamily(familyName, babies);
+    console.error(error);
 
     return;
   };
@@ -36,7 +35,7 @@ const Family = () => {
     });
 
   const handleAddAnotherBaby = () => {
-    setBabies([...babies, { name: "", bday: "" }]);
+    setBabies([...babies, { name: "", dob: "" }]);
   };
 
   return (
