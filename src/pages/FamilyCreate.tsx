@@ -91,7 +91,7 @@ const Family = () => {
             colorScheme="transparent"
             variant="outline"
           >
-            Add another child
+            Add another baby
           </Button>
 
           <Button onClick={handleSubmit} type="submit" colorScheme="purple">
