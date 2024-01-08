@@ -1,24 +1,32 @@
 import { Input } from "@chakra-ui/react";
-import { useState } from "react";
 import { Baby } from "../pages/FamilyCreate";
 
-const BabyForm = ({ babies, index }: { babies: Baby[]; index: number }) => {
-  const [name, setName] = useState("");
-  const [bday, setBday] = useState("");
-
+const BabyForm = ({
+  baby,
+  hasMultipleBabies,
+  index,
+  setName,
+  setBday,
+}: {
+  baby: Baby;
+  hasMultipleBabies: boolean;
+  index: number;
+  setName: (name: string) => void;
+  setBday: (bday: string) => void;
+}) => {
   return (
     <div className="baby-card">
       <Input
         type="text"
         placeholder={
-          babies.length === 1 ? "baby's name" : `baby ${index + 1}'s name`
+          hasMultipleBabies ? "baby's name" : `baby ${index + 1}'s name`
         }
-        value={name}
+        value={baby.name}
         onChange={(e) => setName(e.target.value)}
       />
       <Input
         type="date"
-        value={bday}
+        value={baby.dob}
         onChange={(e) => setBday(e.target.value)}
       />
     </div>

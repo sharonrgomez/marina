@@ -3,6 +3,7 @@
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { createFamily } from "../firebase/firestore/family";
 import { useContext, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import "../styles/layout.css";
 import "../styles/family-create.css";
@@ -15,6 +16,39 @@ export type Baby = {
   dob: string;
   gender?: "boy" | "girl";
 };
+
+const Babies = ({
+  babies,
+  setBabies,
+}: {
+  babies: Baby[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setBabies: Dispatch<SetStateAction<Baby[]>>;
+}) =>
+  babies.map((baby, i) => {
+    return (
+      <BabyForm
+        baby={baby}
+        hasMultipleBabies={babies.length === 1}
+        index={i}
+        key={i}
+        setName={(name) =>
+          setBabies((prev) => {
+            const newBabies = [...prev];
+            newBabies[i].name = name;
+            return newBabies;
+          })
+        }
+        setBday={(bday) =>
+          setBabies((prev) => {
+            const newBabies = [...prev];
+            newBabies[i].dob = bday;
+            return newBabies;
+          })
+        }
+      />
+    );
+  });
 
 const Family = () => {
   const [familyName, setFamilyName] = useState("");
@@ -35,11 +69,6 @@ const Family = () => {
 
     return;
   };
-
-  const Babies = () =>
-    babies.map((_, i) => {
-      return <BabyForm babies={babies} index={i} key={i} />;
-    });
 
   const handleAddAnotherBaby = () => {
     setBabies([...babies, { name: "", dob: "" }]);
@@ -63,14 +92,14 @@ const Family = () => {
             onChange={(e) => setFamilyName(e.target.value)}
           />
 
-          <Babies />
+          <Babies babies={babies} setBabies={setBabies} />
 
           <Button
             onClick={handleAddAnotherBaby}
             colorScheme="transparent"
             variant="outline"
           >
-            Add another child
+            Add another baby
           </Button>
 
           <Button onClick={handleSubmit} type="submit" colorScheme="purple">
@@ -84,7 +113,7 @@ const Family = () => {
             flexDirection="row"
             minWidth="max-content"
           >
-            Trying to join an existing family? Join a family{" "}
+            Trying to join an existing Family? Join a Family{" "}
             <Link to="/family/join">
               <Text fontWeight="bolder" paddingLeft=".3rem" as="span">
                 here
