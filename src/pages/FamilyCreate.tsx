@@ -2,11 +2,13 @@
 
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { createFamily } from "../firebase/firestore/family";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/layout.css";
 import "../styles/family-create.css";
 import { BabyForm } from "../components";
+import { linkUserFamily } from "../firebase/firestore/user";
+import {AuthContext} from "../context/AuthContext";
 
 export type Baby = {
   name: string;
@@ -19,12 +21,17 @@ const Family = () => {
   const [babies, setBabies] = useState<Baby[]>([
     { name: "", dob: "", gender: "girl" },
   ]);
+  const auth = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
+    if(!auth?.user?.uid) throw "not logged in"
 
-    const { error } = await createFamily(familyName, babies);
-    console.error(error);
+    const { result: familyRef, error } = await createFamily(familyName, babies);
+
+    if (error) throw error
+    await linkUserFamily(auth?.user?.uid, familyRef)
+
 
     return;
   };

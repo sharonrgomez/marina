@@ -33,15 +33,14 @@ export const createBabies = async (babies: Baby[]) => {
 }
 
 export const createFamily = async (name, babies: Baby[]) => {
-  let result = null,
-    error = null;
+  let result: DocumentReference | null = null, error = null;
 
   try {
     const { result: babyRefs, error } = await createBabies(babies)
     if (error) throw error
 
     const docRef = await addDoc(collection(fs, "families"), { name, babies: babyRefs });
-    alert(docRef.id)
+    result = docRef
   } catch (e: any) {
     error = e;
   }
