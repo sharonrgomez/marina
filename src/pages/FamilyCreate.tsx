@@ -4,11 +4,21 @@ import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import { createFamily } from "../firebase/firestore/family";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "../styles/layout.css";
 import "../styles/family-create.css";
+import { BabyForm } from "../components";
+
+export type Baby = {
+  name: string;
+  bday: string;
+  gender?: "boy" | "girl";
+};
 
 const Family = () => {
   const [familyName, setFamilyName] = useState("");
-  const [babies, setBabies] = useState([{ name: "", bday: "" }]);
+  const [babies, setBabies] = useState<Baby[]>([
+    { name: "", bday: "", gender: undefined },
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,28 +30,9 @@ const Family = () => {
     return;
   };
 
-  const BabyFields = ({ name, bday }: { name: string; bday: string }) => {
-    return (
-      <div className="family-create-baby-card">
-        <Input
-          type="text"
-          placeholder="Baby's name"
-          value={name}
-          onChange={() => {}}
-        />
-        <Input
-          type="text"
-          placeholder="Baby's birthday"
-          value={bday}
-          onChange={() => {}}
-        />
-      </div>
-    );
-  };
-
   const Babies = () =>
-    babies.map((baby, i) => {
-      return <BabyFields key={i} name={baby.name} bday={baby.bday} />;
+    babies.map((_, i) => {
+      return <BabyForm babies={babies} index={i} key={i} />;
     });
 
   const handleAddAnotherBaby = () => {
@@ -49,19 +40,19 @@ const Family = () => {
   };
 
   return (
-    <div id="auth">
-      <Text className="auth-title" fontSize="4xl" marginBottom="1">
+    <div className="layout">
+      <Text className="layout-title" fontSize="4xl" marginBottom="1">
         Create a Family
       </Text>
-      <Text className="auth-subtitle" fontSize="md" marginBottom="1">
+      <Text className="layout-subtitle" fontSize="md" marginBottom="1">
         Tell us more about your family. This will allow you to share your
         account with your partner.
       </Text>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <Stack className="auth-buttons" spacing={3}>
+      <form className="layout-form" onSubmit={handleSubmit}>
+        <Stack className="layout-buttons" spacing={3}>
           <Input
             type="text"
-            placeholder="Name of your family"
+            placeholder="your family's name"
             value={familyName}
             onChange={(e) => setFamilyName(e.target.value)}
           />
@@ -76,7 +67,7 @@ const Family = () => {
             Add another child
           </Button>
 
-          <Button onClick={handleSubmit} type="submit" colorScheme="gray">
+          <Button onClick={handleSubmit} type="submit" colorScheme="purple">
             Let's go!
           </Button>
           <Text
@@ -89,7 +80,7 @@ const Family = () => {
           >
             Trying to join an existing family? Join a family{" "}
             <Link to="/family/join">
-              <Text fontWeight="bolder" paddingLeft=".3rem">
+              <Text fontWeight="bolder" paddingLeft=".3rem" as="span">
                 here
               </Text>
             </Link>

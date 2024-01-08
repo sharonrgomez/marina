@@ -1,4 +1,4 @@
-#auth {
+.layout {
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -14,9 +14,9 @@
   color: white;
 }
 
-.auth-form {
+.layout-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 375px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,10 +27,34 @@
   }
 }
 
-.auth-subtitle {
+.layout-buttons {
+  margin-top: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-buttons a {
+  padding: 0.3rem 0;
+}
+
+.layout-buttons button {
   width: 100%;
 
   @media screen and (min-width: 600px) {
     width: 375px;
   }
+}
+
+.layout-subtitle {
+  width: 100%;
+
+  @media screen and (min-width: 600px) {
+    width: 375px;
+  }
+}
+
+.layout-title {
+  line-height: 1.2;
+  padding-bottom: 0.3rem;
 }

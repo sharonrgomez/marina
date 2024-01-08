@@ -1,4 +1,4 @@
-.family-create-baby-card {
+.baby-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -6,4 +6,16 @@
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   padding: 10px;
+}
+
+.baby-card {
+  color: #545454;
+
+  ::placeholder {
+    color: #959595;
+  }
+
+  input[type="date"] {
+    color: #959595;
+  }
 }

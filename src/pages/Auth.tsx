@@ -3,7 +3,7 @@ import logIn from "../firebase/auth/login";
 import signUp from "../firebase/auth/signUp";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
-import "../styles/auth.css";
+import "../styles/layout.css";
 
 const SignUpFields = ({
   setName,
@@ -83,17 +83,17 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
 
   // todo - clean this up
   return (
-    <div id="auth">
-      <Text className="auth-title" fontSize="4xl" marginBottom="1">
+    <div className="layout">
+      <Text className="layout-title" fontSize="4xl" marginBottom="1">
         {isLoggingIn ? "Log in" : "Sign up"}
       </Text>
-      <Text className="auth-subtitle" fontSize="md" marginBottom="1">
+      <Text className="layout-subtitle" fontSize="md" marginBottom="1">
         {isLoggingIn
           ? "Hello, welcome back!"
           : "Let's get started! Please fill out the following fields to create your account."}
       </Text>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <Stack className="auth-buttons" spacing={3}>
+      <form className="layout-form" onSubmit={handleSubmit}>
+        <Stack className="layout-buttons" spacing={3}>
           {isLoggingIn ? (
             <LoginFields
               setEmail={setEmail}
@@ -125,7 +125,7 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
             >
               Don't have an account?
               <Link to="/signup">
-                <Text fontWeight="bolder" paddingLeft=".3rem">
+                <Text fontWeight="bolder" paddingLeft=".3rem" as="span">
                   Sign up
                 </Text>
               </Link>
@@ -141,7 +141,7 @@ const Auth = ({ isLoggingIn }: { isLoggingIn?: boolean }) => {
             >
               Already have an account?
               <Link to="/login">
-                <Text fontWeight="bolder" paddingLeft=".3rem">
+                <Text fontWeight="bolder" paddingLeft=".3rem" as="span">
                   Log in
                 </Text>
               </Link>

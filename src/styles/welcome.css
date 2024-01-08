@@ -1,38 +1,3 @@
-#welcome {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: rgb(217, 181, 255);
-  background: linear-gradient(
-    180deg,
-    rgba(217, 181, 255, 1) 0%,
-    rgba(151, 185, 255, 1) 100%
-  );
-  color: white;
-}
-
-.welcome-buttons {
-  margin-top: 0.5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.welcome-buttons a {
-  padding: 0.3rem 0;
-}
-
-.welcome-buttons button {
-  width: 100%;
-
-  @media screen and (min-width: 600px) {
-    width: 200px;
-  }
-}
-
 .welcome-logo {
   max-width: 165px;
 }
@@ -40,12 +5,4 @@
 .welcome-title {
   font-family: "Playpen Sans", cursive;
   font-weight: 300;
-}
-
-.welcome-snippet {
-  width: 100%;
-
-  @media screen and (min-width: 600px) {
-    width: 375px;
-  }
 }
