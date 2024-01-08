@@ -12,10 +12,6 @@
   color: #545454;
 
   ::placeholder {
-    color: #959595;
-  }
-
-  input[type="date"] {
-    color: #959595;
+    color: #545454;
   }
 }
