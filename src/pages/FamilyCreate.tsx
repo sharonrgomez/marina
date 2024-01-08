@@ -105,7 +105,7 @@ const Family = () => {
             flexDirection="row"
             minWidth="max-content"
           >
-            Trying to join an existing family? Join a family{" "}
+            Trying to join an existing Family? Join a Family{" "}
             <Link to="/family/join">
               <Text fontWeight="bolder" paddingLeft=".3rem" as="span">
                 here
