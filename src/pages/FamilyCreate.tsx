@@ -9,7 +9,7 @@ import "../styles/layout.css";
 import "../styles/family-create.css";
 import { BabyForm } from "../components";
 import { linkUserFamily } from "../firebase/firestore/user";
-import {AuthContext} from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 export type Baby = {
   name: string;
@@ -58,14 +58,16 @@ const Family = () => {
   const auth = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
-    if(!auth?.user?.uid) throw "not logged in"
+    e.preventDefault();
+    if (!auth?.user?.uid) throw "not logged in";
 
     const { result: familyRef, error } = await createFamily(familyName, babies);
 
-    if (error) throw error
-    await linkUserFamily(auth?.user?.uid, familyRef)
+    if (error) throw error;
 
+    if (familyRef) {
+      await linkUserFamily(auth?.user?.uid, familyRef);
+    }
 
     return;
   };

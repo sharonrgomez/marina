@@ -23,7 +23,13 @@ const NavDrawer = ({ user }: { user?: User | null }) => {
   return (
     <>
       <div id="nav-drawer">
-        <Button ref={btnRef} colorScheme="cyan" onClick={onOpen}>
+        <Button
+          ref={btnRef}
+          background="none"
+          onClick={onOpen}
+          height="54px"
+          color="white"
+        >
           <HamburgerIcon />
         </Button>
       </div>

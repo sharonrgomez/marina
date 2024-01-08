@@ -35,6 +35,11 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 2.5em;
+  line-height: 1;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -65,4 +70,14 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+#root {
+  background: rgb(217, 181, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(217, 181, 255, 1) 0%,
+    rgba(151, 185, 255, 1) 100%
+  );
+  color: white;
 }
