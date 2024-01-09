@@ -14,7 +14,7 @@ import { AuthContext } from "../context/AuthContext";
 export type Baby = {
   name: string;
   dob: string;
-  gender?: "boy" | "girl";
+  gender?: "boy" | "girl" | string;
 };
 
 const Babies = ({
@@ -39,10 +39,17 @@ const Babies = ({
             return newBabies;
           })
         }
-        setBday={(bday) =>
+        setDOB={(dob) =>
           setBabies((prev) => {
             const newBabies = [...prev];
-            newBabies[i].dob = bday;
+            newBabies[i].dob = dob;
+            return newBabies;
+          })
+        }
+        setGender={(gender) =>
+          setBabies((prev) => {
+            const newBabies = [...prev];
+            newBabies[i].gender = gender;
             return newBabies;
           })
         }
