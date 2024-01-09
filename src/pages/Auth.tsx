@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logIn from "../firebase/auth/login";
-import signUp from "../firebase/auth/signUp";
+import signUp from "../firebase/auth/signup";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Input, Stack, Text } from "@chakra-ui/react";
 import "../styles/layout.css";

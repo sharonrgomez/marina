@@ -66,15 +66,11 @@ const Family = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!auth?.user?.uid) throw "not logged in";
+    const userId = auth?.user?.uid;
+    if (!userId) throw "not logged in";
 
-    const { result: familyRef, error } = await createFamily(familyName, babies);
-
-    if (error) throw error;
-
-    if (familyRef) {
-      await linkUserFamily(auth?.user?.uid, familyRef);
-    }
+    const familyRef = await createFamily(familyName, babies);
+    await linkUserFamily(userId, familyRef);
 
     return;
   };

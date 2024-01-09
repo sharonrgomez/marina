@@ -1,19 +1,35 @@
 import firebase_app from "../config";
-import { DocumentReference, getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  DocumentData,
+  DocumentReference,
+  collection,
+  getFirestore,
+} from "firebase/firestore";
+import { doc, setDoc, getDoc, getDocs } from "firebase/firestore";
 
 const fs = getFirestore(firebase_app);
 
+export const linkUserFamily = async (
+  userId: string,
+  familyRef: DocumentReference
+) => {
+  await setDoc(doc(fs, "users", userId), { family: familyRef });
+};
 
-export const linkUserFamily = async (userId: string, familyRef: DocumentReference) => {
+export const getBabies = async (userId) => {
+  const userDocRef = await getDoc(doc(fs, "users", userId));
+  const familyRef = userDocRef.data()?.family;
 
-    let result: DocumentReference[] | null = null, error = null;
+  if (!familyRef) throw "No Linked Family";
 
-    try {
-        await setDoc(doc(fs, "users", userId), { family: familyRef });
-    } catch (e: any) {
-        error = e
-    }
+  const babyRefs = await getDocs(
+    collection(fs, "families", familyRef.id, "babies")
+  );
+  const babies: DocumentData[] = [];
 
-    return {result, error}
-}
+  babyRefs.forEach((baby) => {
+    babies.push(baby.data());
+  });
+
+  return babies;
+};

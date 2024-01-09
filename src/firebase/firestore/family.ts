@@ -6,46 +6,25 @@ import { Baby } from "../../pages/FamilyCreate";
 
 const fs = getFirestore(firebase_app);
 
-export const createBabies = async (babies: Baby[]) => {
-  let result: DocumentReference[] | null = null,
-    error = null;
+export const createBabies = async (familyId: string, babies: Baby[]) => {
   const babyRefs: DocumentReference[] = [];
 
-  try {
-    const batch = writeBatch(fs);
+  const batch = writeBatch(fs);
 
-    babies.forEach((baby) => {
-      const docRef = doc(collection(fs, "babies")); //automatically generate unique id
-      babyRefs.push(docRef);
-      batch.set(docRef, baby);
-    });
+  babies.forEach((baby) => {
+    const docRef = doc(collection(fs, "families", familyId, "babies"));
+    babyRefs.push(docRef);
+    batch.set(docRef, baby);
+  });
 
-    await batch.commit();
-    result = babyRefs;
-  } catch (e: any) {
-    error = e;
-  }
-
-  return { result, error };
+  await batch.commit();
+  return babyRefs;
 };
 
 export const createFamily = async (name, babies: Baby[]) => {
-  // eslint-disable-next-line prefer-const
-  let result = null,
-    error = null;
-
-  try {
-    const { result: babyRefs, error } = await createBabies(babies);
-    if (error) throw error;
-
-    const docRef = await addDoc(collection(fs, "families"), {
-      name,
-      babies: babyRefs,
-    });
-    alert(docRef.id);
-  } catch (e: any) {
-    error = e;
-  }
-
-  return { result, error };
+  const familyDocRef = await addDoc(collection(fs, "families"), {
+    name,
+  });
+  await createBabies(familyDocRef.id, babies);
+  return familyDocRef;
 };

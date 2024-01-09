@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import logOut from "../firebase/auth/logOut";
+import logOut from "../firebase/auth/logout";
 import { useEffect } from "react";
 
 const Logout = () => {

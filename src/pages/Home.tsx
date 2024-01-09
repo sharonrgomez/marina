@@ -1,3 +1,4 @@
+import { useEffect, useContext, useState } from "react";
 import "../styles/home.css";
 import {
   Card,
@@ -7,14 +8,27 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { getBabies } from "../firebase/firestore/user";
 
+import { AuthContext } from "../context/AuthContext";
+import { DocumentData } from "firebase/firestore";
 const Home = () => {
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
+  const [babies, setBabies] = useState<DocumentData[]>([]);
+
+  const auth = useContext(AuthContext);
+  useEffect(() => {
+    const userId = auth?.user?.uid;
+    const fetchBubs = async () => {
+      setBabies(await getBabies(userId));
+    };
+    if (userId) fetchBubs();
+  }, [auth?.user?.uid]);
 
   return (
     <div id="home">
       <Text fontSize="2xl" fontWeight="bold" py="2">
-        Marina
+        {babies?.[0]?.name ?? "Marina"}
       </Text>
       <Card
         width={isLargerThan600 ? "400px" : "92vw"}
