@@ -13,6 +13,8 @@ export const linkUserFamily = async (
   userId: string,
   familyRef: DocumentReference
 ) => {
+  // todo only link if userid is in invitedUsers field?
+  // maybe firestore rule if thats possible
   await setDoc(doc(fs, "users", userId), { family: familyRef });
 };
 
