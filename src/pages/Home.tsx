@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import "../styles/home.css";
 import {
+  Button,
   Card,
   CardBody,
   Image,
@@ -11,10 +12,18 @@ import {
 import { getBabies } from "../firebase/firestore/user";
 
 import { AuthContext } from "../context/AuthContext";
-import { DocumentData } from "firebase/firestore";
+import {
+  DocumentData,
+  DocumentReference,
+  QueryDocumentSnapshot,
+  Timestamp,
+} from "firebase/firestore";
+import { addFeeding, getLatestFeeding } from "../firebase/firestore/feedings";
 const Home = () => {
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
-  const [babies, setBabies] = useState<DocumentData[]>([]);
+  const [babies, setBabies] =
+    useState<QueryDocumentSnapshot<DocumentData, DocumentData>[]>();
+  const [lastFed, setLastFed] = useState<DocumentData>();
 
   const auth = useContext(AuthContext);
   useEffect(() => {
@@ -25,10 +34,26 @@ const Home = () => {
     if (userId) fetchBubs();
   }, [auth?.user?.uid]);
 
+  let baby: DocumentData | undefined;
+  let babyRef: DocumentReference | undefined;
+
+  babies?.forEach((snapshot) => {
+    baby = snapshot.data();
+    babyRef = snapshot.ref;
+  });
+
+  useEffect(() => {
+    const x = async () => {
+      if (!babyRef) return;
+      setLastFed((await getLatestFeeding(babyRef)).docs.at(0)?.data());
+    };
+    x();
+  }, [babyRef]);
+
   return (
     <div id="home">
       <Text fontSize="2xl" fontWeight="bold" py="2">
-        {babies?.[0]?.name ?? "Marina"}
+        {baby?.name ?? "Marina"}
       </Text>
       <Card
         width={isLargerThan600 ? "400px" : "92vw"}
@@ -54,7 +79,27 @@ const Home = () => {
           </CardBody>
         </Stack>
       </Card>
-      <Card></Card>
+      <Card>
+        <Text>
+          {lastFed?.amount}
+          {lastFed?.unit}
+        </Text>
+
+        <Text>{lastFed?.type}</Text>
+      </Card>
+      <Button
+        onClick={() => {
+          if (!babyRef) throw "no baby";
+          addFeeding(babyRef, {
+            amount: 3.5,
+            unit: "oz",
+            type: "expressed",
+            time: Timestamp.fromDate(new Date()),
+          });
+        }}
+      >
+        Baby Eated
+      </Button>
     </div>
   );
 };

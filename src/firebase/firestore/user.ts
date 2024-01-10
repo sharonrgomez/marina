@@ -1,6 +1,5 @@
 import firebase_app from "../config";
 import {
-  DocumentData,
   DocumentReference,
   collection,
   getFirestore,
@@ -24,14 +23,8 @@ export const getBabies = async (userId) => {
 
   if (!familyRef) throw "No Linked Family";
 
-  const babyRefs = await getDocs(
+  const babiesQuerySnapshot = await getDocs(
     collection(fs, "families", familyRef.id, "babies")
   );
-  const babies: DocumentData[] = [];
-
-  babyRefs.forEach((baby) => {
-    babies.push(baby.data());
-  });
-
-  return babies;
+  return babiesQuerySnapshot.docs;
 };
