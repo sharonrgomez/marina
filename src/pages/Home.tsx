@@ -57,27 +57,35 @@ const Home = () => {
       </Text>
       <Card
         width={isLargerThan600 ? "400px" : "92vw"}
-        direction="row"
+        direction="column"
         overflow="hidden"
         variant="outline"
         border="none"
+        backgroundColor="none"
+        className="home-babies"
       >
-        <Image objectFit="cover" maxW="100px" src="/logo.png" />
-        <Stack alignItems="flex-start">
-          <CardBody textAlign="left" color="#3f3f3f">
-            <Text fontSize="sm">
-              Age <b>2 weeks</b>
-            </Text>
+        {babies?.map(() => {
+          return (
+            <div className="home-baby">
+              <Image objectFit="cover" maxW="100px" src="/girl.svg" />
+              <Stack alignItems="flex-start">
+                <CardBody textAlign="left" color="#3f3f3f">
+                  <Text fontSize="sm">
+                    Age <b>2 weeks</b>
+                  </Text>
 
-            <Text fontSize="sm">
-              Last slept <b>1 hr ago</b>
-            </Text>
+                  <Text fontSize="sm">
+                    Last slept <b>1 hr ago</b>
+                  </Text>
 
-            <Text fontSize="sm">
-              Last ate <b>1.5 hrs ago (formula, 3oz)</b>
-            </Text>
-          </CardBody>
-        </Stack>
+                  <Text fontSize="sm">
+                    Last ate <b>1.5 hrs ago (formula, 3oz)</b>
+                  </Text>
+                </CardBody>
+              </Stack>
+            </div>
+          );
+        })}
       </Card>
       <Card>
         <Text>

@@ -6,6 +6,7 @@ const BabyForm = ({
   setName,
   setDOB,
   setGender,
+  setPicture,
 }: {
   baby: Baby;
   hasMultipleBabies: boolean;
@@ -13,6 +14,7 @@ const BabyForm = ({
   setName: (name: Baby["name"]) => void;
   setDOB: (dob: Baby["dob"]) => void;
   setGender: (gender: Baby["gender"]) => void;
+  setPicture: (pic: Baby["picture"]) => void;
 }) => {
   return (
     <div className="baby-card">
@@ -39,6 +41,7 @@ const BabyForm = ({
             Girl
           </Radio>
         </RadioGroup>
+        <input type="file" onChange={(e) => setPicture(e.target.value)} />
       </Stack>
     </div>
   );

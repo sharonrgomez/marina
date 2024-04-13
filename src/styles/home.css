@@ -5,3 +5,19 @@
   align-items: center;
   min-height: 100vh;
 }
+
+.home-babies {
+  display: flex;
+  flex-direction: column;
+  background-color: none;
+}
+
+.home-baby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+}

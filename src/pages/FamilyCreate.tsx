@@ -15,6 +15,7 @@ export type Baby = {
   name: string;
   dob: string;
   gender?: "boy" | "girl" | string;
+  picture?: string;
 };
 
 const Babies = ({
@@ -53,6 +54,13 @@ const Babies = ({
             return newBabies;
           })
         }
+        setPicture={(picture) => {
+          setBabies((prev) => {
+            const newBabies = [...prev];
+            newBabies[i].picture = picture;
+            return newBabies;
+          });
+        }}
       />
     );
   });
